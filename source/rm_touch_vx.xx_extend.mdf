@@ -23,6 +23,11 @@ Setting to 1 includes parameter checking; 0 compiles out parameter checking</des
             <option id="TOUCH_CFG_UART_MONITOR_SUPPORT.1" display="Enable" value="1"/>
             <description>For QE monitor with emulator, set this to 0. For QE monitor with UART, set this to 1.</description>
         </property>
+        <property id="TOUCH_CFG_UART_TUNING_SUPPORT" display="Support QE tuning using UART" default="0" type="combobox">
+            <option id="TOUCH_CFG_UART_TUNING_SUPPORT.0" display="Disable" value="0"/>
+            <option id="TOUCH_CFG_UART_TUNING_SUPPORT.1" display="Enable" value="1"/>
+            <description>For QE tuning with emulator, set this to 0. For QE tuning with UART, set this to 1.</description>
+        </property>
         <property id="TOUCH_CFG_UART_NUMBER" display="UART channel" default="0" type="combobox">
             <option id="TOUCH_CFG_UART_NUMBER.0" display="UART0" value="0"/>
             <option id="TOUCH_CFG_UART_NUMBER.1" display="UART1" value="1"/>

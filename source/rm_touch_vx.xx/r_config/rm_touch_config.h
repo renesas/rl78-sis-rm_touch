@@ -34,6 +34,9 @@
 /* For QE monitor with emulator, set this to 0. For QE monitor with UART, set this to 1 */
 #define TOUCH_CFG_UART_MONITOR_SUPPORT    (0)
 
+/* For QE tuning with emulator, set this to 0. For QE tuning with UART, set this to 1 */
+#define TOUCH_CFG_UART_TUNING_SUPPORT     (0)
+
 /* For QE monitor with UART channel */
 #define TOUCH_CFG_UART_NUMBER             (0)
 

@@ -31,12 +31,48 @@
 /***********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
-#define TOUCH_CODE_VERSION_MAJOR    (1U)
-#define TOUCH_CODE_VERSION_MINOR    (0U)
 
 /***********************************************************************************************************************
  * Typedef definitions
  **********************************************************************************************************************/
+
+#if (TOUCH_CFG_UART_TUNING_SUPPORT == 1)
+/** CTSU state number */
+typedef enum e_touch_tuning_state
+{
+    _0_RESET          ,
+    _1_INITIALIZE     ,
+    _2_SCAN           ,
+    _3_COMPLETE       ,
+    _4_STOP
+} touch_tuning_state_t;
+
+typedef enum e_touch_tuning_mode
+{
+    CORRECTION_1ST_VALUE    ,
+    CORRECTION_2ND_VALUE    ,
+    MEASURE_PHASE1          ,
+    MEASURE_PHASE2          ,
+    MEASURE_PHASE3          ,
+    QE_WATTING              ,
+    TUNING_START            ,
+    TUNING_FINISH           ,
+} touch_tuning_mode_t;
+
+typedef enum e_touch_tuning_scan
+{
+    SELF_SCAN           ,
+    MUTUAL_SCAN         ,
+    MUTUAL_CFC_SCAN     ,
+    CURRENT_SCAN        ,
+} touch_tuning_scan_t;
+
+typedef struct
+{
+    uint32_t    mska;
+    uint32_t    mskb;
+} touch_tuning_ts_msk_t;
+#endif
 
 /** Information of button */
 typedef struct
@@ -72,12 +108,13 @@ typedef struct
 /** TOUCH private control block. DO NOT MODIFY. Initialization occurs when RM_TOUCH_Open() is called. */
 typedef struct st_touch_instance_ctrl
 {
-    uint32_t                open;            ///< Whether or not driver is open.
-    touch_button_info_t     binfo;           ///< Information of button.
-    touch_slider_info_t     sinfo;           ///< Information of slider.
-    touch_wheel_info_t      winfo;           ///< Information of wheel.
-    touch_cfg_t const     * p_touch_cfg;     ///< Pointer to initial configurations.
-    ctsu_instance_t const * p_ctsu_instance; ///< Pointer to CTSU instance.
+    uint32_t                open;                 ///< Whether or not driver is open.
+    touch_button_info_t     binfo;                ///< Information of button.
+    touch_slider_info_t     sinfo;                ///< Information of slider.
+    touch_wheel_info_t      winfo;                ///< Information of wheel.
+    bool                    serial_tuning_enable; ///< Serial tuning enabled flag.
+    touch_cfg_t const     * p_touch_cfg;          ///< Pointer to initial configurations.
+    ctsu_instance_t const * p_ctsu_instance;      ///< Pointer to CTSU instance.
 } touch_instance_ctrl_t;
 
 /**********************************************************************************************************************
@@ -99,12 +136,17 @@ fsp_err_t RM_TOUCH_DataGet(touch_ctrl_t * const p_ctrl,
                            uint64_t           * p_button_status,
                            uint16_t           * p_slider_position,
                            uint16_t           * p_wheel_position);
+fsp_err_t RM_TOUCH_ScanStop(touch_ctrl_t * const p_ctrl);
 fsp_err_t RM_TOUCH_CallbackSet(touch_ctrl_t * const          p_api_ctrl,
                                void (                      * p_callback)(touch_callback_args_t *),
                                void const * const            p_context,
                                touch_callback_args_t * const p_callback_memory);
+fsp_err_t RM_TOUCH_SmsSet(touch_ctrl_t * const p_ctrl);
 fsp_err_t RM_TOUCH_Close(touch_ctrl_t * const p_ctrl);
-fsp_err_t RM_TOUCH_VersionGet(fsp_version_t * const p_version);
+fsp_err_t RM_TOUCH_SensitivityRatioGet(touch_ctrl_t * const       p_ctrl,
+                                       touch_sensitivity_info_t * p_touch_sensitivity_info);
+fsp_err_t RM_TOUCH_ThresholdAdjust(touch_ctrl_t * const p_ctrl, touch_sensitivity_info_t * p_touch_sensitivity_info);
+fsp_err_t RM_TOUCH_DriftControl(touch_ctrl_t * const p_ctrl, uint16_t input_drift_freq);
 
 #endif                                 // RM_TOUCH_H
 
