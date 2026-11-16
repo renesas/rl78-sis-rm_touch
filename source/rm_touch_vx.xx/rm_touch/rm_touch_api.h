@@ -1,4 +1,4 @@
-/**********************************************************************************************************************
+/***********************************************************************************************************************
 * DISCLAIMER
 * This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No
 * other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
@@ -14,7 +14,7 @@
 * following link:
 * http://www.renesas.com/disclaimer
 * Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
-*********************************************************************************************************************/
+************************************************************************************************************************/
 
 /*******************************************************************************************************************//**
  * @ingroup RENESAS_INTERFACES
@@ -42,8 +42,9 @@
 /**********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
-#define TOUCH_COUNT_MAX            CTSU_COUNT_MAX ///< Value of Maximum count
-#define TOUCH_OFF_VALUE            (0xFFFF)       ///< Value of Non-touch
+
+#define TOUCH_COUNT_MAX    CTSU_COUNT_MAX ///< Value of Maximum count
+#define TOUCH_OFF_VALUE    (0xFFFF)       ///< Value of Non-touch
 
 #define TOUCH_SUCCESS FSP_SUCCESS
 
@@ -83,6 +84,19 @@ typedef struct st_touch_wheel_cfg_t
     uint16_t        threshold;         ///< Position calculation start threshold value.
 } touch_wheel_cfg_t;
 
+/** Configuration of each pads */
+typedef struct st_touch_pad_cfg_t
+{
+    uint8_t const * p_elem_index_rx;   ///< RX of element number arrays used by this pad.
+    uint8_t const * p_elem_index_tx;   ///< TX of element number arrays used by this pad.
+    uint8_t         num_elements;      ///< Number of elements used by this pad.
+    uint16_t        threshold;         ///< Coordinate calculation threshold value.
+    uint16_t        rx_pixel;          ///< rx coordinate resolution
+    uint16_t        tx_pixel;          ///< tx coordinate resolution
+    uint8_t         max_touch;         ///< Maximum number of touch judgments used by the pad.
+    uint8_t         num_drift;         ///< Number of pad drift.
+} touch_pad_cfg_t;
+
 /** Callback function parameter data */
 typedef struct st_ctsu_callback_args touch_callback_args_t;
 
@@ -92,6 +106,7 @@ typedef struct st_touch_cfg
     touch_button_cfg_t const * p_buttons;    ///< Pointer to array of button configuration.
     touch_slider_cfg_t const * p_sliders;    ///< Pointer to array of slider configuration.
     touch_wheel_cfg_t const  * p_wheels;     ///< Pointer to array of wheel configuration.
+    touch_pad_cfg_t const    * p_pad;        ///< Pointer of pad configuration.
     uint8_t                 num_buttons;     ///< Number of buttons.
     uint8_t                 num_sliders;     ///< Number of sliders.
     uint8_t                 num_wheels;      ///< Number of wheels.
@@ -146,13 +161,25 @@ typedef struct st_touch_api
     fsp_err_t (* dataGet)(touch_ctrl_t * const p_ctrl, uint64_t * p_button_status, uint16_t * p_slider_position,
                           uint16_t * p_wheel_position);
 
-    /** Scan stop.
+    /** ScanStop.
      * @par Implemented as
      * - @ref RM_TOUCH_ScanStop()
      *
      * @param[in]  p_ctrl       Pointer to control structure.
      */
     fsp_err_t (* scanStop)(ctsu_ctrl_t * const p_ctrl);
+
+    /** pad data get.
+     * @par Implemented as
+     * - @ref RM_TOUCH_PadDataGet()
+     *
+     * @param[in]  p_ctrl               Pointer to control structure.
+     * @param[out] p_pad_rx_coordinate  Pointer to get coordinate of receiver side.
+     * @param[out] p_pad_tx_coordinate  Pointer to get coordinate of transmitter side.
+     * @param[out] p_pad_num_touch      Pointer to get touch count.
+     */
+    fsp_err_t (* padDataGet)(touch_ctrl_t * const p_ctrl, uint16_t * p_pad_rx_coordinate,
+                             uint16_t * p_pad_tx_coordinate, uint8_t * p_pad_num_touch);
 
     /** Specify callback function and optional context pointer and working memory pointer.
      * @par Implemented as
