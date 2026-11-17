@@ -1438,6 +1438,7 @@ fsp_err_t RM_TOUCH_SmsSet (touch_ctrl_t * const p_ctrl)
     for (button_id = 0; button_id < p_instance_ctrl->p_touch_cfg->num_buttons; button_id++)
     {
         p_instance_ctrl->binfo.p_on_count[button_id] = p_instance_ctrl->binfo.on_freq;
+        p_instance_ctrl->binfo.p_off_count[button_id] = 0;
     }
 
     /* The value is requested in this format */
