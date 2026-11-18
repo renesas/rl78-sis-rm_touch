@@ -37,5 +37,10 @@ Setting to 1 includes parameter checking; 0 compiles out parameter checking</des
             <option id="TOUCH_CFG_UART_NUMBER.161" display="UARTA1" value="0xA1"/>
             <description>For QE monitor with UART channel.</description>
         </property>
+        <property id="TOUCH_CFG_CHATTERING_SUPPRESSION_TYPE" default="0" display="Type of chattering suppression" type="combobox">
+            <option id="TOUCH_CFG_CHATTERING_SUPPRESSION_TYPE.TYPEA" value="0" display="TypeA : Counter of exceed threshold is hold within hysteresis range."/>
+            <option id="TOUCH_CFG_CHATTERING_SUPPRESSION_TYPE.TYPEB" value="1" display="TypeB : Counter of exceed threshold is reset within hysteresis range."/>
+            <description>TypeA of chattering suppression : Counter of exceed threshold is hold within hysteresis range. / TypeB of chattering suppression : Counter of exceed threshold is reset within hysteresis range.</description>
+        </property>
     </configuration>
 </module>
