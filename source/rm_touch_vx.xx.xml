@@ -16,7 +16,7 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 -->
 <refinfo>
@@ -38,6 +38,8 @@
     <!-- only one target entry allowed; multiple sub tags permitted -->
     <target>
         <family>RL78</family>
+        <series>RL78F2x</series>
+        <group>RL78F25</group>
         <series>RL78G2x</series>
         <group>RL78G23</group>
         <group>RL78G22</group>
@@ -50,19 +52,19 @@
     <package>
         <type>RL78</type>
         <name>rm_touch</name>
-        <version>1.50</version>
-        <zipsource>rm_touch_v1.50.zip</zipsource>
+        <version>2.00</version>
+        <zipsource>rm_touch_v2.00.zip</zipsource>
         <dependency>
             <module>r_bsp</module>
-            <version>1.62</version>
+            <version>1.70</version>
         </dependency>
         <dependency>
             <module>r_ctsu</module>
-            <version>1.50</version>
+            <version>2.00</version>
         </dependency>
         <application>CapTouch</application>
         <desc>Touch middleware.</desc>
-        <details>The TOUCH Module is middleware that uses the CTSU2L module to provide capacitive touch detection. The TOUCH module assumes access from the user application is possible.</details>
+        <details>The TOUCH Module is middleware that uses the CTSU module to provide capacitive touch detection. The TOUCH module assumes access from the user application is possible.</details>
         <function>CapTouch</function>
         <incdir>r_config</incdir>
         <incdir>rm_touch</incdir>
