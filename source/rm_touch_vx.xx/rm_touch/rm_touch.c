@@ -823,7 +823,7 @@ fsp_err_t RM_TOUCH_DataGet (touch_ctrl_t * const p_ctrl,
 {
     fsp_err_t               err             = FSP_SUCCESS;
     touch_instance_ctrl_t * p_instance_ctrl = (touch_instance_ctrl_t *) p_ctrl;
-    uint16_t                data[CTSU_CFG_NUM_SELF_ELEMENTS + (CTSU_CFG_NUM_MUTUAL_ELEMENTS * 2)];
+    static uint16_t         data[CTSU_CFG_NUM_SELF_ELEMENTS + (CTSU_CFG_NUM_MUTUAL_ELEMENTS * 2)];
 #if ((TOUCH_CFG_NUM_BUTTONS != 0) || (TOUCH_CFG_NUM_SLIDERS != 0) || (TOUCH_CFG_NUM_WHEELS != 0))
     uint16_t sensor_val = 0;
  #if (CTSU_CFG_NUM_MUTUAL_ELEMENTS != 0)
@@ -2513,7 +2513,7 @@ void touch_uart_callback (uint16_t event)
  #if (TOUCH_CFG_UART_TUNING_SUPPORT == 1)
     touch_instance_ctrl_t * p_instance_ctrl = gp_touch_isr_context;
     uint16_t                element_id;
-    uint32_t              * port_adress;
+    uint32_t __far        * port_adress;
     uint8_t                 write_byte;
  #endif
 
