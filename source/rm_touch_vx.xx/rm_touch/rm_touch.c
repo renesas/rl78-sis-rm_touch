@@ -207,6 +207,13 @@
 
 #define TOUCH_RATIO_CALC(a)    ((uint16_t) (a / 100))
 
+#if (CTSU_CFG_SUMULTI0 == 0x3F)
+#define TOUCH_CFG_PHASE1_SDPA_VALUE                    (0x1F)
+#endif
+#if (CTSU_CFG_SUMULTI0 == 0x2F)
+#define TOUCH_CFG_PHASE1_SDPA_VALUE                    (0x17)
+#endif
+
 #if (TOUCH_CFG_UART_TUNING_SUPPORT == 1)
  #define TOUCH_TUNING_CH_REG_MAX_NUM                   (32)
  #define TOUCH_TUNING_KEY_MAX_NUM                      (CTSU_CFG_NUM_SELF_ELEMENTS + CTSU_CFG_NUM_MUTUAL_ELEMENTS * 2)
@@ -1482,7 +1489,7 @@ fsp_err_t RM_TOUCH_SmsSet (touch_ctrl_t * const p_ctrl)
     /* At that time, to immediately touch-on the button that exceeds the threshold. */
     for (button_id = 0; button_id < p_instance_ctrl->p_touch_cfg->num_buttons; button_id++)
     {
-        p_instance_ctrl->binfo.p_on_count[button_id] = p_instance_ctrl->binfo.on_freq;
+        p_instance_ctrl->binfo.p_on_count[button_id]  = p_instance_ctrl->binfo.on_freq;
         p_instance_ctrl->binfo.p_off_count[button_id] = 0;
     }
 
@@ -3786,7 +3793,7 @@ void touch_tuning_qe_get_cfg (touch_instance_ctrl_t * const p_instance_ctrl)
         {
  #if (BSP_FEATURE_CTSU_VERSION == 2)
             g_touch_tuning_element_cfgs[i].snum = 0x07;
-            g_touch_tuning_element_cfgs[i].sdpa = 0x1F;
+            g_touch_tuning_element_cfgs[i].sdpa = TOUCH_CFG_PHASE1_SDPA_VALUE;
             g_touch_tuning_element_cfgs[i].so   = 0x00;
  #endif
  #if (BSP_FEATURE_CTSU_VERSION == 1)
