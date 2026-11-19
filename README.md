@@ -3,7 +3,8 @@
 - Please refer to the [APN](https://www.renesas.com/en/document/apn/rl78-family-touch-module-software-integration-system) for more information.
 
 # License
-- Use condition is basically [MIT Clause](https://github.com/renesas/rl78-sis-rm_touch/blob/master/license.md).
+- Use condition is basically [BSD-3-Clause](https://github.com/renesas/rl78-sis-rm_touch/blob/master/license.md).
+- Use condition for V2.10 or earlier is basically [MIT Clause](https://github.com/renesas/rl78-sis-rm_touch/blob/V2.1.0/license.md).
 
 # How to Install
 - The official package can be installed by Smart Configurator.
