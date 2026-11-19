@@ -42,15 +42,15 @@
     <package>
         <type>RL78</type>
         <name>rm_touch</name>
-        <version>2.20</version>
-        <zipsource>rm_touch_v2.20.zip</zipsource>
+        <version>2.30</version>
+        <zipsource>rm_touch_v2.30.zip</zipsource>
         <dependency>
             <module>r_bsp</module>
-            <version>1.70</version>
+            <version>1.91</version>
         </dependency>
         <dependency>
             <module>r_ctsu</module>
-            <version>2.20</version>
+            <version>2.30</version>
         </dependency>
         <application>CapTouch</application>
         <desc>Touch middleware.</desc>
